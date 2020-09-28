@@ -1,0 +1,399 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tutorial &mdash; ELECTRIC  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="https://3dmol.org/build/3Dmol-min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> ELECTRIC
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#running-an-electric-calculation">Running an ELECTRIC calculation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#preparing-files">Preparing Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#simulation-parameter-file">Simulation Parameter File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tinker-input-file">Tinker input file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bash-script">Bash script</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-calculation">Running the calculation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#analyzing-results-from-electric">Analyzing Results from ELECTRIC</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ELECTRIC</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Tutorial</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/tutorial.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tutorial">
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
+<p>This tutorial will walk you through using ELECTRIC to analyze the electric field in a small protein. This tutorial assumes you have ELECTRIC and MDI-enabled Tinker installed. If you don’t, navigate to the <a class="reference external" href="http://www.github.com/janash/ELECTRIC_tutorial">installation</a> instructions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>This tutorial will assume the following:</dt><dd><ul class="simple">
+<li><p>You are able to run a molecular dynamics simulation using the Tinker software, or are familiar enough with molecular dynamics to follow along.</p></li>
+<li><p>You have installed ELECTRIC and MDI-enabled Tinker. If you have not, see the <a class="reference external" href="http://www.github.com/janash/ELECTRIC_tutorial">installation</a> instructions.</p></li>
+<li><p>You are able to download or clone a directory from git.</p></li>
+<li><p>You are familiar with bash scripts.</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+<p>The pdb code for this protein is <a class="reference external" href="https://www.rcsb.org/structure/1l2y">1l2y</a>, and you can see the structure below. We have chosen a small protein for demonstrative purposes.</p>
+<center><div style="height: 300px; width: 300px; position: relative;" class="viewer_3Dmoljs" data-pdb=1l2y data-backgroundcolor="white"  data-style=cartoon:color=spectrum ></div></center><div class="section" id="running-an-electric-calculation">
+<h2>Running an ELECTRIC calculation<a class="headerlink" href="#running-an-electric-calculation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="preparing-files">
+<h3>Preparing Files<a class="headerlink" href="#preparing-files" title="Permalink to this headline">¶</a></h3>
+<p>To follow along with this tutorial, clone the <a class="reference external" href="http://www.github.com/janash/ELECTRIC_tutorial">tutorial repository</a>. Included in this repository is folder called <cite>data</cite>. The <cite>data</cite> directory has all of the data you will need for this tutorial.</p>
+<p>ELECTRIC is a post-processing analysis, meaning that you should first run your simulations using the AMOEBA forcefield and save the trajectory. After you have a trajectory from Tinker simulation, use ELECTRIC to perform electric field analysis on that trajectory. We will be analyzing the trajectory included in the tutorial repository, <cite>1l2y_npt.arc</cite>. This trajectory is a text file containing coordinates for a simulation that has already been run.</p>
+<dl class="simple">
+<dt>To get started with ELECTRIC, we will need to prepare our input files. We will need:</dt><dd><ul class="simple">
+<li><p>a molecular dynamics trajectory</p></li>
+<li><p>a Tinker input file which does not have periodic boundaries or Ewald summation</p></li>
+<li><p>the forcefield parameter file</p></li>
+<li><p>a bash script file</p></li>
+</ul>
+</dd>
+</dl>
+<p>We already have the molecular dynamics trajectory, so let’s look at each of these additional files.</p>
+<div class="section" id="simulation-parameter-file">
+<h4>Simulation Parameter File<a class="headerlink" href="#simulation-parameter-file" title="Permalink to this headline">¶</a></h4>
+<p>This file contains the force field parameters for the simulation you have run. If you are using this software for analysis, use the same force field you used to run the molecular dynamics simulation. For this tutorial, the parameter file is <cite>amoebabio18.prm</cite>. We will need this for our Tinker input file (next section).</p>
+</div>
+<div class="section" id="tinker-input-file">
+<h4>Tinker input file<a class="headerlink" href="#tinker-input-file" title="Permalink to this headline">¶</a></h4>
+<p>Next, we must prepare an input file which tells Tinker settings for our calculation. This input file should be a modified version of the one which you used to run your initial simulation. Consider the input file, <cite>tinker.key</cite> used to obtain this trajectory:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>parameters amoebabio18.prm
+openmp-threads 16
+
+a-axis 50.00
+b-axis 50.00
+c-axis 50.00
+
+polar-eps 0.000010
+polar-predict
+polarization mutual
+
+
+cutoff 10.0
+ewald
+neighbor-list
+integrator beeman
+
+thermostat nose-hoover
+barostat nose-hoover
+
+maxiter 8000
+printout 1000
+</pre></div>
+</div>
+<p>The input file used for this simulation uses both periodic boundaries and an Ewald summation for electrostatics. During a Tinker simulation using AMOEBA, electric fields are calculated in order to calculate the induced dipoles at each step. In order to get electric field contributions from specific residues, we must calculate the electric field using the real space interactions only (no periodic boundaries or Ewald).</p>
+<p>Remove settings related to cutoffs (<cite>cutoff</cite> keyword), periodic boundaries (<cite>a-axis</cite>, <cite>b-axis</cite>, <cite>c-axis</cite>) and Ewald summation (<cite>ewald</cite>). You can also remove settings having to do with neighbor lists (<cite>neighbor-list</cite>), as they are not needed and can cause an error for this calculation if included.</p>
+<p>The modifed input file for ELECTRIC is given below. Save this file with the name <cite>no_ewald.key</cite>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>parameters amoebabio18.prm
+openmp-threads 16
+
+polar-eps 0.000010
+polar-predict
+polarization mutual
+
+integrator beeman
+
+thermostat nose-hoover
+barostat nose-hoover
+
+maxiter 8000
+printout 100
+</pre></div>
+</div>
+</div>
+<div class="section" id="bash-script">
+<h4>Bash script<a class="headerlink" href="#bash-script" title="Permalink to this headline">¶</a></h4>
+<p>This file will launch MDI-enabled Tinker and the ELECTRIC driver. When you run an ELECTRIC analysis, ELECTRIC parses your given trajectory and options and sends snapshots to Tinker. The MDI-enabled version of Tinker then calculates the electric field information for that snapshot, as would usually be calculated during a molecular dynamics simulation.</p>
+<p>You use ELECTRIC from the command line. Consider the following bash script provided for analysis, <cite>run_analysis.sh</cite>. We will explain this script in detail.</p>
+<div class="highlight-bash notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">#location of required codes</span>
+<span class="nv">DRIVER_LOC</span><span class="o">=</span>LOCATION/TO/ELECTRIC/ELECTRIC.py
+<span class="nv">TINKER_LOC</span><span class="o">=</span>LOCATION/TO/DYNAMIC/dynamic.x
+
+<span class="c1">#remove old files</span>
+<span class="k">if</span> <span class="o">[</span> -d work <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+rm -r work
+<span class="k">fi</span>
+
+<span class="c1">#create work directory</span>
+cp -r data work
+<span class="nb">cd</span> work
+
+<span class="c1">#set the number of threads</span>
+<span class="nb">export</span> <span class="nv">OMP_NUM_THREADS</span><span class="o">=</span><span class="m">2</span>
+
+<span class="c1">#launch MDI enabled Tinker</span>
+<span class="si">${</span><span class="nv">TINKER_LOC</span><span class="si">}</span> 1l2y -k no_ewald.key -mdi <span class="s2">&quot;-role ENGINE -name NO_EWALD -method TCP -port 8022 -hostname localhost&quot;</span>  <span class="m">10</span> <span class="m">1</span>.0 <span class="m">0</span>.002 <span class="m">2</span> <span class="m">300</span>.00 &gt; no_ewald.log <span class="p">&amp;</span>
+
+<span class="c1">#launch driver</span>
+python <span class="si">${</span><span class="nv">DRIVER_LOC</span><span class="si">}</span> -snap 1l2y_npt.arc -probes <span class="s2">&quot;93 94&quot;</span> -mdi <span class="s2">&quot;-role DRIVER -name driver -method TCP -port 8022&quot;</span> --byres 1l2y_solvated.pdb  --equil <span class="m">140</span> --stride <span class="m">2</span> <span class="p">&amp;</span>
+
+<span class="nb">wait</span>
+</pre></div>
+</td></tr></table></div>
+<p>In lines <cite>2</cite> and <cite>3</cite>, you should change the location to your installed ELECTRIC.py file and MDI-enabled <cite>dynamic.x</cite>. The next section removes the folder called <cite>work</cite> if it exists. This <cite>bash</cite> script is written to put all analysis files into a folder called <cite>work</cite> to keep our original files clean. We copy everything from <cite>data</cite> into the folder <cite>work</cite>. This folder (<cite>work</cite>) is where this analysis will run. Note that this part of the tutorial is completely stylistic. The authors prefer this method to keep files separated.</p>
+<p>MDI-enabled Tinker is launched on line <cite>18</cite> with the command</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="si">${</span><span class="nv">TINKER_LOC</span><span class="si">}</span> 1l2y -k no_ewald.key -mdi <span class="s2">&quot;-role ENGINE -name NO_EWALD -method TCP -port 8022 -hostname localhost&quot;</span>  <span class="m">10</span> <span class="m">1</span>.0 <span class="m">0</span>.002 <span class="m">2</span> <span class="m">300</span>.00 &gt; no_ewald.log <span class="p">&amp;</span>
+</pre></div>
+</div>
+<p>The first thing on this line, <cite>${TINKER_LOC}</cite> fills in the location for <cite>dynamic.x</cite> which you put in line 2. Next, <cite>1l2y</cite> is the file name (without an extension) of the xyz file for this calculation (provided vile <cite>12ly.xyz</cite>). You should have this from your original simulation. However, make sure that there is no box information on line two of this <cite>xyz</cite> file, as this could cause Tinker to use periodic boundaries. Next, we give the input file (key file) we have prepared in the previous step using <cite>-k no_ewald.key</cite>. Then, we give our MDI options. The given options should work for most analysis. After the MDI options are some Tinker input options. For our analysis, it will not really matter what we put here since we are running calculations on one snapshot at a time. However, you must have these present for Tinker to run. Very importantly, note the ampersand (<cite>&amp;</cite>) at the end of this line. This will launch Tinker in the background, where it will be waiting for commands from ELECTRIC.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure that there is no box information on line two of the <cite>xyz</cite> file used to launch MDI-enabled Tinker. This could cause Tinker to use periodic boundaries.</p>
+</div>
+<p>In the next command (line <cite>21</cite>), we launch ELECTRIC.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python <span class="si">${</span><span class="nv">DRIVER_LOC</span><span class="si">}</span> -snap 1l2y_npt.arc -probes <span class="s2">&quot;78 93 94&quot;</span>  -mdi <span class="s2">&quot;-role DRIVER -name driver -method TCP -port 8022&quot;</span> --byres 1l2y_solvated.pdb  --equil <span class="m">140</span> --stride <span class="m">2</span> <span class="p">&amp;</span>
+</pre></div>
+</div>
+<p>Here, we first give the location of our ELECTRIC driver. We indicate our trajectory file using the <cite>-snap</cite> argument with the filename to analyze, followed by MDI options.</p>
+<div class="section" id="probe-atoms">
+<h5>Probe Atoms<a class="headerlink" href="#probe-atoms" title="Permalink to this headline">¶</a></h5>
+<p>To run an ELECTRIC calculation, you must give the indices of your probe atoms. The probe atoms are the atoms where you choose to analyze the electric field. You should obtain the number of the probe atoms from the <cite>xyz</cite> file you use to launch MDI-enabled Tinker (note that this could be different than your pdb file if hydrogens are handled differently). Note that the index you use here should match the number given in the first column of your xyz file. The projection of the electric field at the midpoint of these two atoms will be reported for each analyzed frame. If you indicate more than two probes, all pairwise fields will be reported (ie, if using “78 93 94”, you will get “78 and 93”, “78 and 94” and “93 and 94”). You can see the atoms we have chosen as probes highlighted below:</p>
+<center><div style="height: 300px; width: 300px; position: relative;" class="viewer_3Dmoljs" data-pdb=1l2y data-backgroundcolor="0xffffff"  data-style=cartoon:color=spectrum  data-style1=sphere  data-select1=serial:78,93,94 ></div></center><p>The argument <cite>–byres</cite> gives information to ELECTRIC about how we would like the electric field reported. When we use the <cite>–byres</cite> argument, it should be followed by a pdb which contains residue information for the system you are studying. When using this argument, electric field contributions from each residue will be reported. Other options are <cite>–byatom</cite> top report electric field contributions from each atom, and <cite>–bymol</cite> to report electric field contributions from each molecule.</p>
+<p>When using <cite>–byres</cite>, solvent should be at the end of the <cite>xyz</cite>/<cite>pdb</cite> file. Solvent (ions and water) will be grouped together into a single residue.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When using the <cite>byres</cite> option, you should verify that the residues in your pdb file match what you expect for your xyz file. You can do this with the utility function <cite>residue_report.py</cite>. ELECTRIC will check that the <cite>xyz</cite> and <cite>pdb</cite> have the same number of atoms. However, all residue information will come from the PDB, so make sure the residue information in your provided PDB is as you expect.</p>
+</div>
+<p>Finally, we give arguments which gives information about the frame we want to analyze. Using <cite>–equil 140</cite> tells ELECTRIC to skip the first 140 frames for analysis, and <cite>–stride 2</cite> tells ELECTRIC to analyze every other frame.</p>
+</div>
+</div>
+</div>
+<div class="section" id="running-the-calculation">
+<h3>Running the calculation<a class="headerlink" href="#running-the-calculation" title="Permalink to this headline">¶</a></h3>
+<p>After you have prepared your files, you can run analysis using the command</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_analysis.sh &gt; analysis.out <span class="p">&amp;</span>
+</pre></div>
+</div>
+<p>This will launch ELECTRIC. Again, using the ampersand <cite>&amp;</cite> will run this in the background. Now, you just have to wait for your analysis to finish running.</p>
+</div>
+</div>
+<div class="section" id="analyzing-results-from-electric">
+<h2>Analyzing Results from ELECTRIC<a class="headerlink" href="#analyzing-results-from-electric" title="Permalink to this headline">¶</a></h2>
+<p>This analysis will output a csv file with the electric field information <cite>proj_totfield.csv</cite> in the <cite>work</cite> folder.</p>
+<p>You are free to analyze this as you like, but we recommend using <cite>pandas</cite>. A script to perform averaging of probe pairs across frames is provided in <cite>ELECTRIC/sample_analysis/calculate_average.py</cite>. You can see a binder with results from this tutorial <a href="#id1"><span class="problematic" id="id2">`here`_</span></a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Jessica A. Nash, Taylor A. Barnes, Valerie Vaissier Welborn
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

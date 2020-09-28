@@ -91,11 +91,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#compiling-mdi-tinker-and-electric">Compiling MDI-Tinker and ELECTRIC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#python-dependencies">Python Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#testing-your-installation">Testing Your Installation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#testing">Testing</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-your-installation">Testing Your Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
@@ -177,7 +173,7 @@
 </pre></div>
 </div>
 <p>This will download and build ELECTRIC and MDI-enabled Tinker.</p>
-<p>Upon successfull building, you will have the ELECTRIC driver in ELECTRIC/ELECTRIC/ELECTRIC.py, and the needed Tinker executable (dynamic.x) in ELECTRIC/modules/Tinker/build/tinker/source/dynamic.x</p>
+<p>Upon successfull building, you will have the ELECTRIC driver in ELECTRIC/ELECTRIC/ELECTRIC.py, and the needed Tinker executable (dynamic.x) in ELECTRIC/modules/Tinker/build/tinker/source/dynamic.x . The location of these files can be found in text files in ELECTRIC/test/locations/ELECTRIC and ELECTRIC/test/locations/Tinker_ELECTRIC. You will need these for using ELECTRIC.</p>
 </div>
 <div class="section" id="python-dependencies">
 <h2>Python Dependencies<a class="headerlink" href="#python-dependencies" title="Permalink to this headline">¶</a></h2>
@@ -188,13 +184,6 @@
 </div>
 <div class="section" id="testing-your-installation">
 <h2>Testing Your Installation<a class="headerlink" href="#testing-your-installation" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="configuration">
-<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
-<p>To run the installation test, you will need to tell the driver the location of the files you just compiled. This is indicated in a text file in the repository. Edit the file ELECTRIC/test/locations/ELECTRIC to provide the full path to the ELECTRIC.py Python script. If you followed the installation instructions above, this file will be in […]/ELECTRIC/ELECTRIC/ELECTRIC.py, where […] should be the path appropriate where you executed the clone command.</p>
-<p>Similarly, edit the file ELECTRIC/test/locations/Tinker_ELECTRIC to provide the full path to the dynamic.x executable you compiled from the Tinker distribution ([..]/ELECTRIC/modules/Tinker/build/tinker/source/dynamic.x)</p>
-</div>
-<div class="section" id="testing">
-<h3>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h3>
 <p>You can now run a quick test of the driver by changing directory to the <cite>ELECTRIC/test/bench5</cite> directory and running the <cite>tcp.sh</cite> script:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tcp.sh
 </pre></div>
@@ -212,7 +201,6 @@
 </pre></div>
 </div>
 <p>The driver’s output should match the reference output file (<cite>proj_totfield.csv</cite>) in the <cite>sample_analysis</cite> directory.</p>
-</div>
 </div>
 </div>
 

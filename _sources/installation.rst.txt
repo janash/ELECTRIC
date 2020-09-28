@@ -16,7 +16,7 @@ To install ELECTRIC and MDI-enabled Tinker, you should have cmake and a fortran 
 
 This will download and build ELECTRIC and MDI-enabled Tinker. 
 
-Upon successfull building, you will have the ELECTRIC driver in ELECTRIC/ELECTRIC/ELECTRIC.py, and the needed Tinker executable (dynamic.x) in ELECTRIC/modules/Tinker/build/tinker/source/dynamic.x
+Upon successfull building, you will have the ELECTRIC driver in ELECTRIC/ELECTRIC/ELECTRIC.py, and the needed Tinker executable (dynamic.x) in ELECTRIC/modules/Tinker/build/tinker/source/dynamic.x . The location of these files can be found in text files in ELECTRIC/test/locations/ELECTRIC and ELECTRIC/test/locations/Tinker_ELECTRIC. You will need these for using ELECTRIC.
 
 Python Dependencies
 -------------------
@@ -29,16 +29,6 @@ In order to run ELECTRIC, you will need to be in a python environment which has 
 
 Testing Your Installation
 --------------------------
-
-Configuration
-^^^^^^^^^^^^^
-
-To run the installation test, you will need to tell the driver the location of the files you just compiled. This is indicated in a text file in the repository. Edit the file ELECTRIC/test/locations/ELECTRIC to provide the full path to the ELECTRIC.py Python script. If you followed the installation instructions above, this file will be in [...]/ELECTRIC/ELECTRIC/ELECTRIC.py, where [...] should be the path appropriate where you executed the clone command.
-
-Similarly, edit the file ELECTRIC/test/locations/Tinker_ELECTRIC to provide the full path to the dynamic.x executable you compiled from the Tinker distribution ([..]/ELECTRIC/modules/Tinker/build/tinker/source/dynamic.x)
-
-Testing
-^^^^^^^
 
 You can now run a quick test of the driver by changing directory to the `ELECTRIC/test/bench5` directory and running the `tcp.sh` script:
 

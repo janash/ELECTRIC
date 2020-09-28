@@ -126,7 +126,7 @@ You use ELECTRIC from the command line. Consider the following bash script provi
     ${TINKER_LOC} 1l2y -k no_ewald.key -mdi "-role ENGINE -name NO_EWALD -method TCP -port 8022 -hostname localhost"  10 1.0 0.002 2 300.00 > no_ewald.log &
 
     #launch driver
-    python ${DRIVER_LOC} -snap 1l2y_npt.arc -probes "93 94" -mdi "-role DRIVER -name driver -method TCP -port 8022" --byres 1l2y_solvated.pdb  --equil 140 --stride 2 &
+    python ${DRIVER_LOC} -snap 1l2y_npt.arc -probes "93 94" -mdi "-role DRIVER -name driver -method TCP -port 8022" --byres 1l2y_solvated.pdb  --equil 120 --stride 2 &
 
     wait
 
@@ -154,7 +154,7 @@ In the next command (line `21`), we launch ELECTRIC.
 
 .. code-block:: bash   
 
-    python ${DRIVER_LOC} -snap 1l2y_npt.arc -probes "78 93 94"  -mdi "-role DRIVER -name driver -method TCP -port 8022" --byres 1l2y_solvated.pdb  --equil 140 --stride 2 &
+    python ${DRIVER_LOC} -snap 1l2y_npt.arc -probes "78 93 94"  -mdi "-role DRIVER -name driver -method TCP -port 8022" --byres 1l2y_solvated.pdb  --equil 120 --stride 2 &
 
 Here, we first give the location of our ELECTRIC driver. We indicate our trajectory file using the `-snap` argument with the filename to analyze, followed by MDI options.
 
@@ -183,7 +183,7 @@ When using `--byres`, solvent should be at the end of the `xyz`/`pdb` file. Solv
 
     When using the `byres` option, you should verify that the residues in your pdb file match what you expect for your xyz file. You can do this with the utility function `residue_report.py`. ELECTRIC will check that the `xyz` and `pdb` have the same number of atoms. However, all residue information will come from the PDB, so make sure the residue information in your provided PDB is as you expect.
 
-Finally, we give arguments which gives information about the frame we want to analyze. Using `--equil 140` tells ELECTRIC to skip the first 140 frames for analysis, and `--stride 2` tells ELECTRIC to analyze every other frame.
+Finally, we give arguments which gives information about the frame we want to analyze. Using `--equil 120` tells ELECTRIC to skip the first 120 frames for analysis, and `--stride 2` tells ELECTRIC to analyze every other frame.
 
 Running the calculation
 -----------------------

@@ -13,6 +13,7 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css" type="text/css" />
 
   
   
@@ -31,6 +32,8 @@
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
         <script src="https://3dmol.org/build/3Dmol-min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -85,6 +88,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
 </ul>
 
@@ -153,10 +157,30 @@
             
   <div class="section" id="electric">
 <h1>ELECTRIC<a class="headerlink" href="#electric" title="Permalink to this headline">¶</a></h1>
+<p>ELECTRIC: Electric fields Leveraged from multipole Expansion Calculations in Tinker Rapid Interface Code.</p>
+<p>ELECTRIC uses the MolSSI Driver Interface to perform electric field analysis of Tinker trajectories which use the AMOEBA forcefield. This currently works as a post-processing tool, meaning that you run simulations as normal using Tinker, then analyze the trajectories using MDI-enabled Tinker and this driver.</p>
+<p>Using this tool, you can calculate the electric field along a bond or between atoms due to molecules or residues in the system.</p>
+<p>This method has been reported in the following publications, and is now available as an open source software package:</p>
+<ul class="simple">
+<li></li>
+</ul>
+<p>To get started, head to the <a class="reference external" href="installation.html">installation</a> instructions, see the <a class="reference external" href="usage.html">usage</a>, or try out the <a class="reference external" href="tutorial.html">tutorial</a>.</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#compiling-mdi-tinker-and-electric">Compiling MDI-Tinker and ELECTRIC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#python-dependencies">Python Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#testing-your-installation">Testing Your Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#information-flow">Information Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#procedure">Procedure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#command-line-options">Command-Line Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#output">Output</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#running-an-electric-calculation">Running an ELECTRIC calculation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#analyzing-results-from-electric">Analyzing Results from ELECTRIC</a></li>
@@ -164,14 +188,6 @@
 </li>
 </ul>
 </div>
-</div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
 </div>
 
 

@@ -177,8 +177,9 @@
 </div>
 <div class="section" id="python-dependencies">
 <h2>Python Dependencies<a class="headerlink" href="#python-dependencies" title="Permalink to this headline">¶</a></h2>
-<p>In order to run ELECTRIC, you will need to be in a python environment which has numpy and pandas installed. We recommend installing these packages in a conda environment created for ELECTRIC analysis.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge numpy pandas
+<p>In order to run ELECTRIC, you will need to be in a python environment which has numpy and pandas installed. If you want to run ELECTRIC with more than one engine, you should also install MPI4Py. We recommend installing these packages in a conda environment created for ELECTRIC analysis.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c anaconda mpi4py
+conda install -c conda-forge numpy pandas
 </pre></div>
 </div>
 </div>

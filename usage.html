@@ -92,7 +92,11 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#information-flow">Information Flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#procedure">Procedure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#command-line-options">Command-Line Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#electric-calculation-settings">ELECTRIC Calculation Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Required Arguments">Required Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Named Arguments">Named Arguments</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#output">Output</a></li>
 </ul>
 </li>
@@ -173,23 +177,23 @@
 <h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this headline">¶</a></h2>
 <p>In general, running a calculation with the driver requires the following steps:</p>
 <p>1. <strong>Run a dynamics simulation with Tinker.</strong>
-This simulation should be run with periodic boundary conditions (if desired), and should print snapshots of its results to a single file (i.e., <cite>coordinates.arc</cite>).
-If each snapshot was instead written to a different file (i.e., <cite>coordinates.001</cite>, <cite>coordinates.002</cite>, etc.) then you may concatenate them into a single file.</p>
+This simulation should be run with periodic boundary conditions (if desired), and should print snapshots of its results to a single file (i.e., <code class="code docutils literal notranslate"><span class="pre">coordinates.arc</span></code>).
+If each snapshot was instead written to a different file (i.e., <code class="code docutils literal notranslate"><span class="pre">coordinates.001</span></code>, <code class="code docutils literal notranslate"><span class="pre">coordinates.002</span></code>, etc.) then you may concatenate them into a single file.</p>
 <p>2. <strong>Create a new Tinker keyfile.</strong>
-This keyfile should be identical to the one used in Step 1, except that it <strong>must not</strong> include periodic boundary conditions and <strong>must not</strong> use an Ewald summation. This means that in the <cite>.key</cite> file for running the driver, you should not have an <cite>a-axis</cite> keyword, or keywords related to Ewald.</p>
+This keyfile should be identical to the one used in Step 1, except that it <strong>must not</strong> include periodic boundary conditions and <strong>must not</strong> use an Ewald summation. This means that in the <code class="code docutils literal notranslate"><span class="pre">.key</span></code> file for running the driver, you should not have an <code class="code docutils literal notranslate"><span class="pre">a-axis</span></code> keyword, or keywords related to Ewald.</p>
 <p>3. <strong>Launch one (or more; see the `-nengines` option below) instance(s) of Tinker as an MDI engine, using the keyfile created in Step 2.</strong>
-This is done in the same way you launch a normal Tinker simulation (by launching the <cite>dynamic.x</cite> executable) except that the <cite>-mdi</cite> command-line option is added. However, it is <strong>very important</strong> that the reference coordinates you use do not have periodic boundary information. So, if when you originally ran the simulation you started it with a snapshot from a previous simulation run, make sure to create a new snapshot to launch the simulation from which does not include box information on line 2.</p>
-<p>The argument to the <cite>-mdi</cite> command-line option details how Tinker should connect to the driver; its possible arguments are described in the <a class="reference external" href="https://molssi.github.io/MDI_Library/html/library_page.html#library_launching_sec">MDI documentation</a> .
-When in doubt, we recommend doing <cite>-mdi “-role ENGINE -name NO_EWALD -method TCP -port 8021 -hostname localhost”</cite>
-When run as an engine, Tinker should be launched in the background; this is done by adding an ampersand (<cite>&amp;</cite>) at the end of the launch line.</p>
+This is done in the same way you launch a normal Tinker simulation (by launching the <code class="code docutils literal notranslate"><span class="pre">dynamic.x</span></code> executable) except that the <cite>-mdi</cite> command-line option is added. However, it is <strong>very important</strong> that the reference coordinates you use do not have periodic boundary information. So, if when you originally ran the simulation you started it with a snapshot from a previous simulation run, make sure to create a new snapshot to launch the simulation from which does not include box information on line 2.</p>
+<p>The argument to the <code class="code docutils literal notranslate"><span class="pre">-mdi</span></code> command-line option details how Tinker should connect to the driver; its possible arguments are described in the <a class="reference external" href="https://molssi.github.io/MDI_Library/html/library_page.html#library_launching_sec">MDI documentation</a> .
+When in doubt, we recommend doing <code class="code docutils literal notranslate"><span class="pre">-mdi</span> <span class="pre">&quot;-role</span> <span class="pre">ENGINE</span> <span class="pre">-name</span> <span class="pre">NO_EWALD</span> <span class="pre">-method</span> <span class="pre">TCP</span> <span class="pre">-port</span> <span class="pre">8021</span> <span class="pre">-hostname</span> <span class="pre">localhost&quot;</span></code>
+When run as an engine, Tinker should be launched in the background; this is done by adding an ampersand (<code class="code docutils literal notranslate"><span class="pre">&amp;</span></code>) at the end of the launch line.</p>
 <p>4. <strong>Launch the driver</strong>
 The driver accepts a variety of command-line options, which are described in detail below.
 One possible launch command would be:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="sb">`</span>python <span class="si">${</span><span class="nv">DRIVER_LOC</span><span class="si">}</span> -probes <span class="s2">&quot;1 2 10&quot;</span> -snap coordinates.arc -mdi <span class="s2">&quot;-role DRIVER -name driver -method TCP -port 8021&quot;</span> --byres ke15.pdb --equil <span class="m">51</span> -nengines <span class="m">15</span> <span class="p">&amp;</span><span class="sb">`</span>
 </pre></div>
 </div>
-<p>where <cite>DRIVER_LOC</cite> is the path to ELECTRIC.py which you set during the configuration step.
-The output will be written to <cite>proj_totfield.csv</cite>.</p>
+<p>where <cite>DRIVER_LOC</cite> is the path to ELECTRIC.py which you set during the configuration step. See the section <a class="reference internal" href="#electric-settings"><span class="std std-ref">ELECTRIC Calculation Settings</span></a> for a detailed explanation of command line arguments for ELECTRIC.</p>
+<p>The output will be written to <cite>proj_totfield.csv</cite>.</p>
 <p>It is useful to write a script that performs Steps 3 and 4, especially if the calculations are intended to be run on a shared cluster.
 Such a script might look like:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># location of required codes</span>
@@ -216,73 +220,97 @@ python <span class="si">${</span><span class="nv">DRIVER_LOC</span><span class="
 </div>
 <p>You can read more below, or you can try out the <a class="reference external" href="tutorial.html">tutorial</a> to run a calculation yourself.</p>
 </div>
-<div class="section" id="command-line-options">
-<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
-<p>You can see command line arguments for this driver using the following command from the top level of this repositry:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python ELECTRIC/ELECTRIC.py --help
+<div class="section" id="electric-calculation-settings">
+<span id="electric-settings"></span><h2>ELECTRIC Calculation Settings<a class="headerlink" href="#electric-calculation-settings" title="Permalink to this headline">¶</a></h2>
+<p>You can change the options for your electric calculation through command line arguments.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">python</span> <span class="n">ELECTRIC</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">mdi</span> <span class="n">MDI</span><span class="p">]</span> <span class="o">-</span><span class="n">snap</span> <span class="n">SNAP</span> <span class="o">-</span><span class="n">probes</span> <span class="n">PROBES</span>
+                          <span class="p">[</span><span class="o">-</span><span class="n">nengines</span> <span class="n">NENGINES</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">equil</span> <span class="n">EQUIL</span><span class="p">]</span>
+                          <span class="p">[</span><span class="o">--</span><span class="n">stride</span> <span class="n">STRIDE</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">byres</span> <span class="n">BYRES</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">bymol</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>Here is the help information for the command line arguments:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>usage: ELECTRIC.py [-h] -mdi MDI -snap SNAP -probes PROBES
-                          [-nengines NENGINES] [--equil EQUIL]
-                          [--stride STRIDE] [--byres BYRES] [--bymol]
-
-required arguments:
-  -mdi MDI            flags for mdi (default: None)
-  -snap SNAP          The file name of the trajectory to analyze. (default:
-                      None)
-  -probes PROBES      Atom indices which are probes for the electric field
-                      calculations. For example, if you would like to
-                      calculate the electric field along the bond between
-                      atoms 1 and 2, you would use -probes &quot;1 2&quot;. (default:
-                      None)
-
-optional arguments:
-  -h, --help          show this help message and exit
-  -nengines NENGINES  This option allows the driver to farm tasks out to
-                      multiple Tinker engines simultaneously, enabling
-                      parallelization of the electric field analysis
-                      computation. The argument to this option **must** be
-                      equal to the number of Tinker engines that are launched
-                      along with the driver. (default: 1)
-  --equil EQUIL       The number of frames to skip performing analysis on at
-                      the beginning of the trajectory file (given by the -snap
-                      argument) For example, using --equil 50 will result in
-                      the first 50 frames of the trajectory being skipped.
-                      (default: 0)
-  --stride STRIDE     The number of frames to skip between analysis
-                      calculations. For example, using --stride 2 would result
-                      in analysis of every other frame in the trajectory.
-                      (default: 1)
-  --byres BYRES       Flag which indicates electric field at the probe atoms
-                      should be calculated with electric field contributions
-                      given per residue. If --byres is indicated, the argument
-                      should be followed by the filename for a pdb file which
-                      gives residues. (default: None)
-  --bymol             Flag which indicates electric field at the probe atoms
-                      should be calculated with electric field contributions
-                      given per molecule. (default: False)
-</pre></div>
+<div class="section" id="Required Arguments">
+<h3>Required Arguments<a class="headerlink" href="#Required Arguments" title="Permalink to this headline">¶</a></h3>
+<dl class="option-list">
+<dt><kbd>-mdi</kbd></dt>
+<dd><p>flags for mdi. When in doubt, <cite>-mdi “-role ENGINE -name NO_EWALD -method TCP -port 8021 -hostname localhost”, type=str, required=True</cite> is a good option.</p>
+</dd>
+<dt><kbd>-snap</kbd></dt>
+<dd><p>The file name of the trajectory to analyze.</p>
+</dd>
+<dt><kbd>-probes</kbd></dt>
+<dd><blockquote>
+<div><p>Atom indices which are probes for the electric field calculations.
+For example, if you would like to calculate the electric field along
+the bond between atoms 1 and 2, you would use <cite>-probes “1 2”</cite>.</p>
+</div></blockquote>
+</dd>
+</dl>
+</div>
+<div class="section" id="Named Arguments">
+<h3>Named Arguments<a class="headerlink" href="#Named Arguments" title="Permalink to this headline">¶</a></h3>
+<dl class="option-list">
+<dt><kbd>-nengines</kbd></dt>
+<dd><blockquote>
+<div><p>This option allows the driver to farm tasks out to multiple Tinker
+engines simultaneously, enabling parallelization of the electric field analysis
+computation. The argument to this option <strong>must</strong> be equal to the number of
+Tinker engines that are launched along with the driver.</p>
+</div></blockquote>
+<p>Default: 1</p>
+</dd>
+<dt><kbd>--equil</kbd></dt>
+<dd><blockquote>
+<div><p>‘The number of frames to skip performing analysis on
+at the beginning of the trajectory file (given by the -snap argument)
+For example, using –equil 50 will result in analysis starting after frame 50 of the trajectory,
+(in other words, the first frame which will be analyzed is frame 50 + stride).</p>
+</div></blockquote>
+<p>Default: 0</p>
+</dd>
+<dt><kbd>--stride</kbd></dt>
+<dd><blockquote>
+<div><p>The number of frames to skip between analysis calculations. For example, using –stride 2 would
+result in analysis of every other frame in the trajectory.</p>
+</div></blockquote>
+<p>Default: 1</p>
+</dd>
+<dt><kbd>--byres</kbd></dt>
+<dd><blockquote>
+<div><p>Flag which indicates electric field
+at the probe atoms should be calculated with electric field contributions given
+per residue. If –byres is indicated, the argument should be followed
+by the filename for a pdb file which gives residues.</p>
+</div></blockquote>
+</dd>
+<dt><kbd>--bymol</kbd></dt>
+<dd><blockquote>
+<div><p>Flag which indicates electric field
+at the probe atoms should be calculated with electric field contributions given
+per molecule.</p>
+</div></blockquote>
+<p>Default: False</p>
+</dd>
+</dl>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
-<p>The driver will output a file called <cite>proj_totfield.csv</cite>. This is a CSV file which contains data on the projected electric field at the point between each probe atom due to each fragment , depending on input (<cite>–byres</cite> for by residue, <cite>–bymol</cite> for by molecule, or by atom if neither argument is given.). Each column will contain a header which indicates which probe atoms the measurement is between, followed by the frame number, while the rows will be the electric field at the mean location between the probe atoms due to a particular fragment</p>
-<p>Consider the example (<cite>bench5</cite>), which was run with the following command:</p>
-<blockquote>
-<div><p>python ${DRIVER_LOC} -probes “1 40” -snap bench5.arc -mdi “-role DRIVER -name driver -method TCP -port 8022” –bymol</p>
-</div></blockquote>
+<p>The driver will output a file called <code class="code docutils literal notranslate"><span class="pre">proj_totfield.csv</span></code>. This is a CSV file which contains data on the projected electric field at the point between each probe atom due to each fragment , depending on input (<cite>–byres</cite> for by residue, <cite>–bymol</cite> for by molecule, or by atom if neither argument is given.). Each column will contain a header which indicates which probe atoms the measurement is between, followed by the frame number, while the rows will be the electric field at the mean location between the probe atoms due to a particular fragment</p>
+<p>Consider the example (<code class="code docutils literal notranslate"><span class="pre">bench5</span></code>), which was run with the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python <span class="si">${</span><span class="nv">DRIVER_LOC</span><span class="si">}</span> -probes <span class="s2">&quot;1 40&quot;</span> -snap bench5.arc -mdi <span class="s2">&quot;-role DRIVER -name driver -method TCP -port 8022&quot;</span> --bymol
+</pre></div>
+</div>
 <p>Here, we have set the probe atoms to be atoms 1 and 40, and we have indicated we want the the electric field between the probe atoms based on contributions by molecule. Headers will be “<cite>i and j - frame n</cite>. Where <cite>i</cite> and <cite>j</cite> are the atom indices of the probes, and <cite>n</cite> is the frame number.</p>
 <p>For the example, headers are:</p>
-<blockquote>
-<div><p>“1 and 40 - frame 0”
-“1 and 40 - frame 1”
-“1 and 40 - frame 2”
-“1 and 40 - frame 3”
-“1 and 40 - frame 4”</p>
-</div></blockquote>
-<p>Since this calculation was run using <cite>–bymol</cite>, there are 216 rows, one for each molecule in the system.</p>
-<p>The first entry, column <cite>1 and 40 - frame 0</cite>, header <cite>molecule 1</cite>, gives the projected total electric field at the midway point between <cite>atom 1</cite> and <cite>atom 40</cite> due to <cite>molecule 1</cite>. The electric field has been projected along the vector which points from <cite>atom 1</cite> to <cite>atom 40</cite>. The projection will always be along the vector from atom 1 to atom 2. You can reverse the sign of the number if you would like the vector to point the opposite way.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&quot;1 and 40 - frame 1&quot;
+&quot;1 and 40 - frame 2&quot;
+&quot;1 and 40 - frame 3&quot;
+&quot;1 and 40 - frame 4&quot;
+&quot;1 and 40 - frame 5&quot;
+</pre></div>
+</div>
+<p>Since this calculation was run using <code class="code docutils literal notranslate"><span class="pre">--bymol</span></code>, there are 216 rows, one for each molecule in the system.</p>
+<p>The first entry, column <code class="code docutils literal notranslate"><span class="pre">1</span> <span class="pre">and</span> <span class="pre">40</span> <span class="pre">-</span> <span class="pre">frame</span> <span class="pre">1</span></code>, header <code class="code docutils literal notranslate"><span class="pre">molecule</span> <span class="pre">1</span></code>, gives the projected total electric field at the midway point between <code class="code docutils literal notranslate"><span class="pre">atom</span> <span class="pre">1</span></code> and <code class="code docutils literal notranslate"><span class="pre">atom</span> <span class="pre">40</span></code> due to <code class="code docutils literal notranslate"><span class="pre">molecule</span> <span class="pre">1</span></code>. The electric field has been projected along the vector which points from <code class="code docutils literal notranslate"><span class="pre">atom</span> <span class="pre">1</span></code> to <code class="code docutils literal notranslate"><span class="pre">atom</span> <span class="pre">40</span></code>. The projection will always be along the vector from atom 1 to atom 2. You can reverse the sign of the number if you would like the vector to point the opposite way.</p>
 </div>
 </div>
 
